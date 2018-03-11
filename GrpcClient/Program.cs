@@ -53,19 +53,18 @@ namespace GrpcClient
     {
         static void Main(string[] args)
         {
-            //string url = "http://localhost:9000";
-            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);
-            //Channel channel = new Channel(url, ChannelCredentials.Insecure);
+            Channel channel = new Channel("chqjpathak:9000", ChannelCredentials.Insecure);
             var client = new GrpcDemoClient(channel);
 
             var reply = client.SendRequestMessageString("Please listen to me as string");
             Console.WriteLine("Server Reply: " + reply);
-
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
             var reply2 = client.SendRequestMessage(new Request { Data = "Please listen to me" });
             Console.WriteLine("Server Reply: " + reply2.Data);
-
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
             client.SendRequestAndGetIncrementalMessageAsync(new Request { Data = "Please send me data" }).Wait();
-
             channel.ShutdownAsync().Wait();
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

@@ -19,12 +19,12 @@ namespace GrpcConsoleApp
 
         private Task<string> ProcessRequestString(string request, ServerCallContext context)
         {
-            return Task.FromResult( String.Format("Server response for: " + request + "\nRequest Processed") );
+            return Task.FromResult( String.Format("Server response for: " + request + "\nListening in string") );
         }
 
         public Task<Response> ProcessRequest(Request request, ServerCallContext context)
         {
-            return Task.FromResult(new Response { Data = String.Format("Server response for: " + request.Data + "\nRequest Processed") });
+            return Task.FromResult(new Response { Data = String.Format("Server response for: " + request.Data + "\nListening in Request") });
         }
 
         public async Task ProcessRequestServerStreamingAsync(Request request, IServerStreamWriter<Response> responseStream, ServerCallContext context)
@@ -41,13 +41,13 @@ namespace GrpcConsoleApp
 
     class Program
     {
-        const int Port = 50051;
+        const int Port = 9000;
         static void Main(string[] args)
         {
             var server = new Server
             {
                 Services = { DemoServiceImpl.BindService(new DemoServiceImpl()) },
-                Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("chqjpathak", Port, ServerCredentials.Insecure) }
             };
             server.Start();
 
